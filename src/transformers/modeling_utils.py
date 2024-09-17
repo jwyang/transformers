@@ -576,7 +576,7 @@ def _load_state_dict_into_model(model_to_load, state_dict, start_prefix):
     new_keys = []
     for key in state_dict.keys():
         new_key = None
-        if "gamma" in key:
+        if "gamma" in key and "clip_vision_model" not in key:
             new_key = key.replace("gamma", "weight")
         if "beta" in key:
             new_key = key.replace("beta", "bias")
@@ -720,7 +720,7 @@ def _load_state_dict_into_meta_model(
     new_keys = []
     for key in state_dict.keys():
         new_key = None
-        if "gamma" in key:
+        if "gamma" in key and "clip_vision_model" not in key:
             new_key = key.replace("gamma", "weight")
         if "beta" in key:
             new_key = key.replace("beta", "bias")
@@ -3631,7 +3631,7 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, GenerationMixin, PushToHubMix
         def _fix_key(key):
             if "beta" in key:
                 return key.replace("beta", "bias")
-            if "gamma" in key:
+            if "gamma" in key and "clip_vision_model" not in key:
                 return key.replace("gamma", "weight")
             return key
 
