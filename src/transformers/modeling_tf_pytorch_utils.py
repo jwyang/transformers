@@ -332,7 +332,7 @@ def load_pytorch_state_dict_in_tf2_model(
     tf_keys_to_pt_keys = {}
     for key in pt_state_dict.keys():
         new_key = None
-        if "gamma" in key:
+        if "gamma" in key and "clip_vision_model" not in key:
             new_key = key.replace("gamma", "weight")
         if "beta" in key:
             new_key = key.replace("beta", "bias")

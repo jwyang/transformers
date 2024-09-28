@@ -99,7 +99,7 @@ def rename_key(name):
     if "stages" in name and "downsampling_layer" not in name:
         # stages.0.0. for instance should be renamed to stages.0.layers.0.
         name = name[: len("stages.0")] + ".layers" + name[len("stages.0") :]
-    if "gamma" in name:
+    if "gamma" in key and "clip_vision_model" not in key:
         name = name.replace("gamma", "weight")
     if "beta" in name:
         name = name.replace("beta", "bias")
