@@ -697,7 +697,7 @@ def _load_state_dict_into_model(model_to_load, state_dict, start_prefix, assign_
     warning_msg = f"A pretrained model of type `{model_to_load.__class__.__name__}` "
     for key in state_dict.keys():
         new_key = None
-        if "gamma" in key:
+        if "gamma" in key and "clip_vision_model" not in key:
             # We add only the first key as an example
             new_key = key.replace("gamma", "weight")
             renamed_gamma[key] = new_key if not renamed_gamma else renamed_gamma
@@ -859,7 +859,7 @@ def _load_state_dict_into_meta_model(
     warning_msg = f"This model {type(model)}"
     for key in state_dict.keys():
         new_key = None
-        if "gamma" in key:
+        if "gamma" in key and "clip_vision_model" not in key:
             # We add only the first key as an example
             new_key = key.replace("gamma", "weight")
             renamed_gamma[key] = new_key if not renamed_gamma else renamed_gamma
@@ -4111,7 +4111,7 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, GenerationMixin, PushToHubMix
         def _fix_key(key):
             if "beta" in key:
                 return key.replace("beta", "bias")
-            if "gamma" in key:
+            if "gamma" in key and "clip_vision_model" not in key:
                 return key.replace("gamma", "weight")
             return key
 
