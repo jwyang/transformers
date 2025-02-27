@@ -4362,7 +4362,7 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, GenerationMixin, PushToHubMix
 
         if "beta" in key:
             return key.replace("beta", "bias")
-        if "gamma" in key:
+        if "gamma" in key and "clip_vision_model" not in key:
             return key.replace("gamma", "weight")
 
         # to avoid logging parametrized weight norm renaming

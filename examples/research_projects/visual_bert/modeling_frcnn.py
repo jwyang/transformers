@@ -1766,7 +1766,7 @@ class GeneralizedRCNN(nn.Module):
         new_keys = []
         for key in state_dict.keys():
             new_key = None
-            if "gamma" in key:
+            if "gamma" in key and "clip_vision_model" not in key:
                 new_key = key.replace("gamma", "weight")
             if "beta" in key:
                 new_key = key.replace("beta", "bias")
